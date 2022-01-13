@@ -1,32 +1,44 @@
 package main
 
 import (
-	"github.com/elastic/go-elasticsearch/v7"
-	"github.com/jinzhu/configor"
+	"bytes"
+	"encoding/json"
+	"github.com/brillience/es_service/elastic"
+	"github.com/brillience/es_service/mag"
 	"log"
 )
 
-var esConfig elasticsearch.Config
-var Conf = struct {
-	Addresses []string `required:"true"`
-	Username  string
-	Password  string
-}{}
-
-func init() {
-	err := configor.Load(&Conf, "config.yaml")
-	if err != nil {
-		log.Fatalln(err.Error())
-	}
-	esConfig.Addresses = Conf.Addresses
-	if Conf.Username != "" && Conf.Password != "" {
-		esConfig.Username = Conf.Username
-		esConfig.Password = Conf.Password
-	}
-}
-
 func main() {
-	es, _ := elasticsearch.NewClient(esConfig)
-	log.Println(elasticsearch.Version)
-	log.Println(es.Info())
+	client := elastic.NewClient()
+	// 确认mag的索引是否创建
+	client.CheckIndexOrCreat("mag", `
+	{
+		"mappings": {
+			"properties": {
+				"docid": {
+					"type": "keyword"
+				},
+				"abstract": {
+					"type": "text"
+				}
+			}
+		}
+	}
+	`)
+	// 覆盖性更新文档；若文档不存在则创建
+	abstracts := mag.LoadCsv("./articles.csv")
+	for {
+		abs := <-abstracts
+		if abs.Id == "" {
+			break
+		}
+		document := mag.Abstract{Id: abs.Id, Content: abs.Content}
+		body := &bytes.Buffer{}
+		err := json.NewEncoder(body).Encode(&document)
+		response, err := client.Index("mag", body, client.Index.WithDocumentID(document.Id))
+		if err != nil {
+			log.Fatalln("[ERROR] ", err.Error())
+		}
+		log.Println(response)
+	}
 }
