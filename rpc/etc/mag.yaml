@@ -1,0 +1,11 @@
+Name: mag.rpc
+ListenOn: 127.0.0.1:8080
+EsConfig:
+  Urls:
+    - http://127.0.0.1:9200
+  User:
+  Password:
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: mag.rpc

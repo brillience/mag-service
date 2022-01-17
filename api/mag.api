@@ -1,0 +1,64 @@
+syntax = "v1"
+
+info(
+	title: "mag数据服务"
+	desc: "基于mag摘要数据对外提供检索和查询服务"
+	author: "brillience"
+	email: "360727078@qq.com"
+)
+
+type Abstract {
+	Docid   string `json:"docid"`
+	Content string `json:"abstract"`
+}
+
+type reqAbsId {
+	Docid string `from:"docid"`
+}
+
+type reqKeyWord {
+	Key string `from:"key"`
+}
+
+type NlpTags {
+	DocId         string `json:"docid"`
+	SentenceIndex int    `json:"sentence_index"`
+	SentenceText  string `json:"sentence_text"`
+	Tokens        string `json:"tokens"`
+	Lemmas        string `json:"lemmas"`
+	PosTags       string `json:"pos_tags"`
+	NerTags       string `json:"ner_tags"`
+	DocOffsets    string `json:"doc_offsets"`
+	DepTypes      string `json:"dep_types"`
+	DepTokens     string `json:"dep_tokens"`
+}
+
+type commonResp {
+	Ok    bool   `json:"ok"`
+	Error string `json:"error"`
+}
+
+@server (
+	jwt:Auth
+)
+service mag-api {
+	@doc "创建Mag摘要文档"
+	@handler CreateDocument
+	post /mag (Abstract) returns (commonResp)
+	
+	@doc "更新Mag摘要文档"
+	@handler UpdateDocument
+	put /mag (Abstract) returns (commonResp)
+	
+	@doc "通过docid获取Mag摘要文档"
+	@handler GetDocumentById
+	get /mag/id/:id (reqAbsId) returns (Abstract)
+	
+	@doc "支持通配符的模糊搜索"
+	@handler SearchDocumentByKey
+	post /mag/search (reqKeyWord) returns ([]Abstract)
+	
+	@doc "通过docid获取Mag摘要的NLP标签"
+	@handler GetNlpById
+	post /mag/nlp (reqAbsId) returns ([]NlpTags)
+}
