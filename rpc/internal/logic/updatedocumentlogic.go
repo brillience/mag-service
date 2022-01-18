@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"es_service/rpc/elastic"
 
 	"es_service/rpc/internal/svc"
 	"es_service/rpc/mag"
@@ -24,7 +25,11 @@ func NewUpdateDocumentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Up
 }
 
 func (l *UpdateDocumentLogic) UpdateDocument(in *mag.Abstract) (*mag.CommonResp, error) {
-	// todo: add your logic here and delete this line
-
-	return &mag.CommonResp{}, nil
+	err := l.svcCtx.MagEs.UpdateDocument(elastic.Abstract{Id: in.DocId, Content: in.Content})
+	switch err {
+	case nil:
+		return &mag.CommonResp{Ok: true, Error: ""}, nil
+	default:
+		return &mag.CommonResp{Ok: false, Error: "更新失败"}, err
+	}
 }

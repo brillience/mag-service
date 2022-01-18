@@ -145,7 +145,7 @@ func (abstractEs *AbstractEs) UpdateCsvToEs(csvPath string) {
 			break
 		}
 		document := Abstract{Id: abs.Id, Content: abs.Content}
-		err := abstractEs.CreateMagDocument(document)
+		err := abstractEs.CreateDocument(document)
 		if err != nil {
 			logx.Error(err.Error())
 		}
@@ -153,13 +153,13 @@ func (abstractEs *AbstractEs) UpdateCsvToEs(csvPath string) {
 }
 
 //
-//  CreateMagDocument
+//  CreateDocument
 //  @Description: 覆盖性更新文档；若文档ID不存在，则创建；
 //  @receiver abstractEs
 //  @param abs
 //  @return error
 //
-func (abstractEs *AbstractEs) CreateMagDocument(abs Abstract) error {
+func (abstractEs *AbstractEs) CreateDocument(abs Abstract) error {
 	body := &bytes.Buffer{}
 	err := json.NewEncoder(body).Encode(&abs)
 	if err != nil {
@@ -170,12 +170,12 @@ func (abstractEs *AbstractEs) CreateMagDocument(abs Abstract) error {
 }
 
 //
-//  UpdateMagDocument
+//  UpdateDocument
 //  @Description: 更新文档
 //  @receiver abstractEs
 //  @param abs
 //
-func (abstractEs *AbstractEs) UpdateMagDocument(abs Abstract) error {
+func (abstractEs *AbstractEs) UpdateDocument(abs Abstract) error {
 	body := &bytes.Buffer{}
 	err := json.NewEncoder(body).Encode(&abs)
 	if err != nil {
@@ -186,14 +186,14 @@ func (abstractEs *AbstractEs) UpdateMagDocument(abs Abstract) error {
 }
 
 //
-//  GetMagDocumentById
+//  GetDocumentById
 //  @Description: 通过id查询摘要结果
 //  @receiver abstractEs
 //  @param id
 //  @return *Abstract
 //  @return error
 //
-func (abstractEs *AbstractEs) GetMagDocumentById(id string) (*Abstract, error) {
+func (abstractEs *AbstractEs) GetDocumentById(id string) (*Abstract, error) {
 	response, err := abstractEs.client.Get("mag", id)
 	if err != nil {
 		return nil, err
@@ -209,14 +209,14 @@ func (abstractEs *AbstractEs) GetMagDocumentById(id string) (*Abstract, error) {
 }
 
 //
-//  SearchMagDocumentsByKeyWord
+//  SearchDocumentsByKeyWord
 //  @Description: 支持通配符的模糊搜索
 //  @receiver abstractEs
 //  @param KeyWord
 //  @return []Abstract
 //  @return error
 //
-func (abstractEs *AbstractEs) SearchMagDocumentsByKeyWord(KeyWord string) ([]Abstract, error) {
+func (abstractEs *AbstractEs) SearchDocumentsByKeyWord(KeyWord string) ([]Abstract, error) {
 
 	// Build the request body.
 	var buf bytes.Buffer

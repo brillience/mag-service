@@ -1,5 +1,11 @@
 Name: mag.rpc
 ListenOn: 127.0.0.1:8080
+Mysql:
+  DataSource: root:zhang111@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+CacheRedis:
+  - Host: 127.0.0.1:6379
+    Pass: zhang111
+    Type: node
 EsConfig:
   Urls:
     - http://127.0.0.1:9200
@@ -7,5 +13,5 @@ EsConfig:
   Password:
 Etcd:
   Hosts:
-  - 127.0.0.1:2379
+    - 127.0.0.1:2379
   Key: mag.rpc

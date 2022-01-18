@@ -24,7 +24,13 @@ func NewSearchDocumentByKeyLogic(ctx context.Context, svcCtx *svc.ServiceContext
 }
 
 func (l *SearchDocumentByKeyLogic) SearchDocumentByKey(in *mag.ReqKeyWord) (*mag.RespAbsMore, error) {
-	// todo: add your logic here and delete this line
-
-	return &mag.RespAbsMore{}, nil
+	abstracts, err := l.svcCtx.MagEs.SearchDocumentsByKeyWord(in.Key)
+	if err != nil {
+		return nil, err
+	}
+	var resp []*mag.Abstract
+	for _, abs := range abstracts {
+		resp = append(resp, &mag.Abstract{DocId: abs.Id, Content: abs.Content})
+	}
+	return &mag.RespAbsMore{Abstracts: resp}, nil
 }

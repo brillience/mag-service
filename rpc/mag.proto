@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package mag;
 
+option go_package = "./mag";
+
 message Abstract {
   string DocId = 1;
   string Content = 2;

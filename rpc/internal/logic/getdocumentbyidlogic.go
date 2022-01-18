@@ -2,7 +2,6 @@ package logic
 
 import (
 	"context"
-
 	"es_service/rpc/internal/svc"
 	"es_service/rpc/mag"
 
@@ -24,7 +23,9 @@ func NewGetDocumentByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 }
 
 func (l *GetDocumentByIdLogic) GetDocumentById(in *mag.ReqAbsId) (*mag.Abstract, error) {
-	// todo: add your logic here and delete this line
-
-	return &mag.Abstract{}, nil
+	abstract, err := l.svcCtx.MagEs.GetDocumentById(in.DocId)
+	if err != nil {
+		return nil, err
+	}
+	return &mag.Abstract{DocId: abstract.Id, Content: abstract.Content}, nil
 }

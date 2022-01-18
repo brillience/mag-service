@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"es_service/rpc/elastic"
 
 	"es_service/rpc/internal/svc"
 	"es_service/rpc/mag"
@@ -24,7 +25,12 @@ func NewCreateDocumentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Cr
 }
 
 func (l *CreateDocumentLogic) CreateDocument(in *mag.Abstract) (*mag.CommonResp, error) {
-	// todo: add your logic here and delete this line
-
-	return &mag.CommonResp{}, nil
+	err := l.svcCtx.MagEs.CreateDocument(elastic.Abstract{
+		Id:      in.DocId,
+		Content: in.Content,
+	})
+	if err != nil {
+		return &mag.CommonResp{Ok: false, Error: "创建文档失败"}, err
+	}
+	return &mag.CommonResp{Ok: true, Error: ""}, nil
 }

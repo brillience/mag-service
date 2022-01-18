@@ -24,7 +24,24 @@ func NewGetNlpByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetNlp
 }
 
 func (l *GetNlpByIdLogic) GetNlpById(in *mag.ReqAbsId) (*mag.RespNlpTagsMore, error) {
-	// todo: add your logic here and delete this line
-
-	return &mag.RespNlpTagsMore{}, nil
+	nlpTags, err := l.svcCtx.NlpTagsModel.FindMoreByDocId(in.DocId)
+	if err != nil {
+		return nil, err
+	}
+	var resp []*mag.NlpTags
+	for _, tags := range nlpTags {
+		resp = append(resp, &mag.NlpTags{
+			DocId:         tags.DocId,
+			SentenceIndex: tags.SentenceIndex,
+			SentenceText:  tags.SentenceText,
+			Tokens:        tags.Tokens,
+			Lemmas:        tags.Lemmas,
+			PosTags:       tags.PosTags,
+			NerTags:       tags.NerTags,
+			DocOffsets:    tags.DocOffsets,
+			DepTypes:      tags.DepTypes,
+			DepTokens:     tags.DepTokens,
+		})
+	}
+	return &mag.RespNlpTagsMore{NlpTagsMore: resp}, nil
 }
