@@ -16,7 +16,7 @@ type ReqKeyWord struct {
 
 type NlpTags struct {
 	DocId         string `json:"docid"`
-	SentenceIndex int    `json:"sentence_index"`
+	SentenceIndex int64    `json:"sentence_index"`
 	SentenceText  string `json:"sentence_text"`
 	Tokens        string `json:"tokens"`
 	Lemmas        string `json:"lemmas"`
@@ -30,4 +30,17 @@ type NlpTags struct {
 type CommonResp struct {
 	Ok    bool   `json:"ok"`
 	Error string `json:"error"`
+}
+
+type LoginReq struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type LoginReply struct {
+	Username     string  `json:"username"`
+	Nick         string `json:"nick"`
+	AccessToken  string `json:"accessToken"`
+	AccessExpire int64  `json:"accessExpire"`
+	RefreshAfter int64  `json:"refreshAfter"`
 }

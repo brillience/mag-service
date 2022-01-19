@@ -1,7 +1,9 @@
-package logic
+package mag
 
 import (
 	"context"
+	"es_service/common/errorx"
+	"es_service/rpc/magclient"
 
 	"es_service/api/internal/svc"
 	"es_service/api/internal/types"
@@ -23,8 +25,10 @@ func NewGetDocumentByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) Ge
 	}
 }
 
-func (l *GetDocumentByIdLogic) GetDocumentById(req types.ReqAbsId) (resp *types.Abstract, err error) {
-	// todo: add your logic here and delete this line
-
-	return
+func (l *GetDocumentByIdLogic) GetDocumentById(req types.ReqAbsId) (*types.Abstract, error) {
+	abstract, err := l.svcCtx.MagRpc.GetDocumentById(l.ctx, &magclient.ReqAbsId{DocId: req.Docid})
+	if err != nil {
+		return nil, errorx.NewDefaultError(err.Error())
+	}
+	return &types.Abstract{Docid: abstract.DocId, Content: abstract.Content}, nil
 }

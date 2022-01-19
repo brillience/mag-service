@@ -4,6 +4,8 @@ package handler
 import (
 	"net/http"
 
+	mag "es_service/api/internal/handler/mag"
+	user "es_service/api/internal/handler/user"
 	"es_service/api/internal/svc"
 
 	"github.com/tal-tech/go-zero/rest"
@@ -14,28 +16,38 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 		[]rest.Route{
 			{
 				Method:  http.MethodPost,
+				Path:    "/user/login",
+				Handler: user.LoginHandler(serverCtx),
+			},
+		},
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
 				Path:    "/mag",
-				Handler: CreateDocumentHandler(serverCtx),
+				Handler: mag.CreateDocumentHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPut,
 				Path:    "/mag",
-				Handler: UpdateDocumentHandler(serverCtx),
+				Handler: mag.UpdateDocumentHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodGet,
 				Path:    "/mag/id/:id",
-				Handler: GetDocumentByIdHandler(serverCtx),
+				Handler: mag.GetDocumentByIdHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
 				Path:    "/mag/search",
-				Handler: SearchDocumentByKeyHandler(serverCtx),
+				Handler: mag.SearchDocumentByKeyHandler(serverCtx),
 			},
 			{
 				Method:  http.MethodPost,
 				Path:    "/mag/nlp",
-				Handler: GetNlpByIdHandler(serverCtx),
+				Handler: mag.GetNlpByIdHandler(serverCtx),
 			},
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),

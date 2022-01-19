@@ -1,8 +1,11 @@
 package main
 
 import (
+	"es_service/common/errorx"
 	"flag"
 	"fmt"
+	"github.com/tal-tech/go-zero/rest/httpx"
+	"net/http"
 
 	"es_service/api/internal/config"
 	"es_service/api/internal/handler"
@@ -25,6 +28,16 @@ func main() {
 	defer server.Stop()
 
 	handler.RegisterHandlers(server, ctx)
+
+	// 自定义错误
+	httpx.SetErrorHandler(func(err error) (int, interface{}) {
+		switch e := err.(type) {
+		case *errorx.CodeError:
+			return http.StatusOK, e.Data()
+		default:
+			return http.StatusInternalServerError, nil
+		}
+	})
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
 	server.Start()
