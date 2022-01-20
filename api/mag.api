@@ -1,86 +1,81 @@
 syntax = "v1"
 
 info(
-    title: "mag数据服务"
-    desc: "基于mag摘要数据对外提供检索和查询服务"
-    author: "brillience"
-    email: "360727078@qq.com"
+	title: "mag数据服务"
+	desc: "基于mag摘要数据对外提供检索和查询服务"
+	author: "brillience"
+	email: "360727078@qq.com"
 )
 
 type Abstract {
-    Docid string `json:"docid"`
-    Content string `json:"abstract"`
+	Docid   string `json:"docid"`
+	Content string `json:"abstract"`
+}
+
+type Abstracts {
+	Data []Abstract `json:"data"`
 }
 
 type reqAbsId {
-    Docid string `from:"docid"`
+	Docid string `from:"docid"`
 }
 
 type reqKeyWord {
-    Key string `from:"key"`
+	Key string `from:"key"`
 }
-
 type NlpTags {
-    DocId string `json:"docid"`
-    SentenceIndex int64 `json:"sentence_index"`
-    SentenceText string `json:"sentence_text"`
-    Tokens string `json:"tokens"`
-    Lemmas string `json:"lemmas"`
-    PosTags string `json:"pos_tags"`
-    NerTags string `json:"ner_tags"`
-    DocOffsets string `json:"doc_offsets"`
-    DepTypes string `json:"dep_types"`
-    DepTokens string `json:"dep_tokens"`
+	DocId string `json:"docid"`
+	Tags  string `json:"tags"`
 }
 
 type commonResp {
-    Ok bool `json:"ok"`
-    Error string `json:"error"`
+	Ok    bool   `json:"ok"`
+	Error string `json:"error"`
 }
 type LoginReq {
-    Username string `json:"username"`
-    Password string `json:"password"`
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 type LoginReply {
-    Username string `json:"username"`
-    Nick string `json:"nick"`
-    AccessToken string `json:"accessToken"`
-    AccessExpire int64 `json:"accessExpire"`
-    RefreshAfter int64 `json:"refreshAfter"`
+	Username     string `json:"username"`
+	Nick         string `json:"nick"`
+	AccessToken  string `json:"accessToken"`
+	AccessExpire int64  `json:"accessExpire"`
+	RefreshAfter int64  `json:"refreshAfter"`
 }
 
 @server(
-    group: user
+	group: user
 )
 service mag-api {
-    @doc "登陆"
-    @handler Login
-    post /user/login (LoginReq) returns (LoginReply)
+	@doc "登陆"
+	@handler Login
+	post /user/login (LoginReq) returns (LoginReply)
 }
 
 @server(
-    jwt: Auth
-    group: mag
+	jwt: Auth
+	group: mag
 )
 service mag-api {
-    @doc "创建Mag摘要文档"
-    @handler CreateDocument
-    post /mag (Abstract) returns (commonResp)
-
-    @doc "更新Mag摘要文档"
-    @handler UpdateDocument
-    put /mag (Abstract) returns (commonResp)
-
-    @doc "通过docid获取Mag摘要文档"
-    @handler GetDocumentById
-    get /mag/id/:id (reqAbsId) returns (Abstract)
-
-    @doc "支持通配符的模糊搜索"
-    @handler SearchDocumentByKey
-    post /mag/search (reqKeyWord) returns ([]Abstract)
-
-    @doc "通过docid获取Mag摘要的NLP标签"
-    @handler GetNlpById
-    post /mag/nlp (reqAbsId) returns ([]NlpTags)
+	@doc "创建Mag摘要文档"
+	@handler CreateDocument
+	post /mag (Abstract) returns (commonResp)
+	
+	@doc "更新Mag摘要文档"
+	@handler UpdateDocument
+	put /mag (Abstract) returns (commonResp)
+	
+	@doc "通过docid获取Mag摘要文档"
+	@handler GetDocumentById
+	get /mag/id/:id (reqAbsId) returns (Abstract)
+	
+	@doc "支持通配符的模糊搜索"
+	@handler SearchDocumentByKey
+	post /mag/search (reqKeyWord) returns (Abstracts)
+	
+	@doc "通过docid获取Mag摘要的NLP标签"
+	@handler GetNlpById
+	post /mag/nlp (reqAbsId) returns (NlpTags)
 }
