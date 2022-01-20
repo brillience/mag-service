@@ -6,19 +6,10 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `nlpTags`;
 CREATE TABLE `nlpTags` (
-   `doc_id_sent_index` varchar(255) NOT NULL DEFAULT '',
    `doc_id` varchar(255) NOT NULL DEFAULT '',
-   `sentence_index` int(11) NOT NULL DEFAULT 0,
-   `sentence_text` tinytext NOT NULL DEFAULT '',
-   `tokens` tinytext NOT NULL DEFAULT '',
-   `lemmas` tinytext NOT NULL DEFAULT '',
-   `pos_tags` tinytext NOT NULL DEFAULT '',
-   `ner_tags` tinytext NOT NULL DEFAULT '',
-   `doc_offsets` tinytext NOT NULL DEFAULT '',
-   `dep_types` tinytext NOT NULL DEFAULT '',
-   `dep_tokens` tinytext NOT NULL DEFAULT '',
-   PRIMARY KEY (`doc_id_sent_index`),
-   UNIQUE KEY `docid_sentindex` (`doc_id`,`sentence_index`)
+   `nlp_tags` text NOT NULL DEFAULT '' COMMENT 'json字符串',
+   PRIMARY KEY (`doc_id`),
+   INDEX `doc_id`(`doc_id`(255))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS = 1;

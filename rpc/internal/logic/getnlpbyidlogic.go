@@ -2,10 +2,9 @@ package logic
 
 import (
 	"context"
+	"es_service/rpc/magclient"
 
 	"es_service/rpc/internal/svc"
-	"es_service/rpc/mag"
-
 	"github.com/tal-tech/go-zero/core/logx"
 )
 
@@ -23,25 +22,10 @@ func NewGetNlpByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetNlp
 	}
 }
 
-func (l *GetNlpByIdLogic) GetNlpById(in *mag.ReqAbsId) (*mag.RespNlpTagsMore, error) {
-	nlpTags, err := l.svcCtx.NlpTagsModel.FindMoreByDocId(in.DocId)
+func (l *GetNlpByIdLogic) GetNlpById(in *magclient.ReqAbsId) (*magclient.NlpTags, error) {
+	tags, err := l.svcCtx.NlpTagsModel.FindOne(in.DocId)
 	if err != nil {
 		return nil, err
 	}
-	var resp []*mag.NlpTags
-	for _, tags := range nlpTags {
-		resp = append(resp, &mag.NlpTags{
-			DocId:         tags.DocId,
-			SentenceIndex: tags.SentenceIndex,
-			SentenceText:  tags.SentenceText,
-			Tokens:        tags.Tokens,
-			Lemmas:        tags.Lemmas,
-			PosTags:       tags.PosTags,
-			NerTags:       tags.NerTags,
-			DocOffsets:    tags.DocOffsets,
-			DepTypes:      tags.DepTypes,
-			DepTokens:     tags.DepTokens,
-		})
-	}
-	return &mag.RespNlpTagsMore{NlpTagsMore: resp}, nil
+	return &magclient.NlpTags{DocId: tags.DocId, Tags: tags.NlpTags}, nil
 }

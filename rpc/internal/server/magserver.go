@@ -5,10 +5,10 @@ package server
 
 import (
 	"context"
+	"es_service/rpc/magclient"
 
 	"es_service/rpc/internal/logic"
 	"es_service/rpc/internal/svc"
-	"es_service/rpc/mag"
 )
 
 type MagServer struct {
@@ -21,27 +21,27 @@ func NewMagServer(svcCtx *svc.ServiceContext) *MagServer {
 	}
 }
 
-func (s *MagServer) CreateDocument(ctx context.Context, in *mag.Abstract) (*mag.CommonResp, error) {
+func (s *MagServer) CreateDocument(ctx context.Context, in *magclient.Abstract) (*magclient.CommonResp, error) {
 	l := logic.NewCreateDocumentLogic(ctx, s.svcCtx)
 	return l.CreateDocument(in)
 }
 
-func (s *MagServer) UpdateDocument(ctx context.Context, in *mag.Abstract) (*mag.CommonResp, error) {
+func (s *MagServer) UpdateDocument(ctx context.Context, in *magclient.Abstract) (*magclient.CommonResp, error) {
 	l := logic.NewUpdateDocumentLogic(ctx, s.svcCtx)
 	return l.UpdateDocument(in)
 }
 
-func (s *MagServer) GetDocumentById(ctx context.Context, in *mag.ReqAbsId) (*mag.Abstract, error) {
+func (s *MagServer) GetDocumentById(ctx context.Context, in *magclient.ReqAbsId) (*magclient.Abstract, error) {
 	l := logic.NewGetDocumentByIdLogic(ctx, s.svcCtx)
 	return l.GetDocumentById(in)
 }
 
-func (s *MagServer) SearchDocumentByKey(ctx context.Context, in *mag.ReqKeyWord) (*mag.RespAbsMore, error) {
+func (s *MagServer) SearchDocumentByKey(ctx context.Context, in *magclient.ReqKeyWord) (*magclient.RespAbsMore, error) {
 	l := logic.NewSearchDocumentByKeyLogic(ctx, s.svcCtx)
 	return l.SearchDocumentByKey(in)
 }
 
-func (s *MagServer) GetNlpById(ctx context.Context, in *mag.ReqAbsId) (*mag.RespNlpTagsMore, error) {
+func (s *MagServer) GetNlpById(ctx context.Context, in *magclient.ReqAbsId) (*magclient.NlpTags, error) {
 	l := logic.NewGetNlpByIdLogic(ctx, s.svcCtx)
 	return l.GetNlpById(in)
 }

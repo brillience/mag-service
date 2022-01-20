@@ -2,9 +2,9 @@ package logic
 
 import (
 	"context"
-	"es_service/rpc/internal/svc"
-	"es_service/rpc/mag"
+	"es_service/rpc/magclient"
 
+	"es_service/rpc/internal/svc"
 	"github.com/tal-tech/go-zero/core/logx"
 )
 
@@ -22,10 +22,10 @@ func NewGetDocumentByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 	}
 }
 
-func (l *GetDocumentByIdLogic) GetDocumentById(in *mag.ReqAbsId) (*mag.Abstract, error) {
+func (l *GetDocumentByIdLogic) GetDocumentById(in *magclient.ReqAbsId) (*magclient.Abstract, error) {
 	abstract, err := l.svcCtx.MagEs.GetDocumentById(in.DocId)
 	if err != nil {
 		return nil, err
 	}
-	return &mag.Abstract{DocId: abstract.Id, Content: abstract.Content}, nil
+	return &magclient.Abstract{DocId: abstract.Id, Content: abstract.Content}, nil
 }

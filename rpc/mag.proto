@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package mag;
 
-option go_package = "./mag";
+option go_package = "mag";
 
 message Abstract {
   string DocId = 1;
@@ -19,15 +19,7 @@ message reqKeyWord{
 
 message NlpTags{
   string DocId = 1;
-  int64 SentenceIndex = 2;
-  string SentenceText = 3;
-  string Tokens = 4;
-  string Lemmas = 5;
-  string PosTags = 6;
-  string NerTags = 7;
-  string DocOffsets = 8;
-  string DepTypes = 9;
-  string DepTokens = 10;
+  string Tags = 2;
 }
 
 message commonResp{
@@ -46,13 +38,11 @@ message Response {
 message respAbsMore{
   repeated Abstract Abstracts=1;
 }
-message respNlpTagsMore{
-  repeated NlpTags NlpTagsMore=1;
-}
+
 service Mag {
   rpc CreateDocument(Abstract) returns(commonResp);
   rpc UpdateDocument(Abstract) returns(commonResp);
   rpc GetDocumentById(reqAbsId) returns(Abstract);
   rpc SearchDocumentByKey(reqKeyWord) returns(respAbsMore);
-  rpc GetNlpById(reqAbsId) returns(respNlpTagsMore);
+  rpc GetNlpById(reqAbsId) returns(NlpTags);
 }
