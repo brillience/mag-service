@@ -1,9 +1,10 @@
-module es_service
+module mag_service
 
 go 1.17
 
 require (
 	github.com/elastic/go-elasticsearch/v7 v7.16.0
+	github.com/golang-jwt/jwt v3.2.1+incompatible
 	github.com/tal-tech/go-zero v1.2.5
 	google.golang.org/grpc v1.43.0
 	google.golang.org/protobuf v1.27.1
@@ -19,7 +20,6 @@ require (
 	github.com/go-redis/redis v6.15.9+incompatible // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/golang-jwt/jwt v3.2.1+incompatible // indirect
 	github.com/golang/mock v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/go-cmp v0.5.6 // indirect

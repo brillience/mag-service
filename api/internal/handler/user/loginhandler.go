@@ -3,10 +3,10 @@ package user
 import (
 	"net/http"
 
-	"es_service/api/internal/logic/user"
-	"es_service/api/internal/svc"
-	"es_service/api/internal/types"
 	"github.com/tal-tech/go-zero/rest/httpx"
+	"mag_service/api/internal/logic/user"
+	"mag_service/api/internal/svc"
+	"mag_service/api/internal/types"
 )
 
 func LoginHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

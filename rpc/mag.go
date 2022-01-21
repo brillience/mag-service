@@ -4,10 +4,10 @@ import (
 	"flag"
 	"fmt"
 
-	"es_service/rpc/internal/config"
-	"es_service/rpc/internal/server"
-	"es_service/rpc/internal/svc"
-	"es_service/rpc/mag"
+	"mag_service/rpc/internal/config"
+	"mag_service/rpc/internal/server"
+	"mag_service/rpc/internal/svc"
+	"mag_service/rpc/mag"
 
 	"github.com/tal-tech/go-zero/core/conf"
 	"github.com/tal-tech/go-zero/core/service"

@@ -5,10 +5,10 @@ package server
 
 import (
 	"context"
-	"es_service/rpc/magclient"
+	"mag_service/rpc/magclient"
 
-	"es_service/rpc/internal/logic"
-	"es_service/rpc/internal/svc"
+	"mag_service/rpc/internal/logic"
+	"mag_service/rpc/internal/svc"
 )
 
 type MagServer struct {

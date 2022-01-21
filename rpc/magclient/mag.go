@@ -6,7 +6,7 @@ package magclient
 import (
 	"context"
 
-	"es_service/rpc/mag"
+	"mag_service/rpc/mag"
 
 	"github.com/tal-tech/go-zero/zrpc"
 	"google.golang.org/grpc"

@@ -2,11 +2,11 @@ package logic
 
 import (
 	"context"
-	"es_service/rpc/elastic"
-	"es_service/rpc/magclient"
+	"mag_service/rpc/elastic"
+	"mag_service/rpc/magclient"
 
-	"es_service/rpc/internal/svc"
 	"github.com/tal-tech/go-zero/core/logx"
+	"mag_service/rpc/internal/svc"
 )
 
 type CreateDocumentLogic struct {

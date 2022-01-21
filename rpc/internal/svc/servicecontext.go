@@ -1,11 +1,11 @@
 package svc
 
 import (
-	"es_service/rpc/elastic"
-	"es_service/rpc/internal/config"
-	"es_service/rpc/model"
 	"github.com/elastic/go-elasticsearch/v7"
 	"github.com/tal-tech/go-zero/core/stores/sqlx"
+	"mag_service/rpc/elastic"
+	"mag_service/rpc/internal/config"
+	"mag_service/rpc/model"
 )
 
 type ServiceContext struct {

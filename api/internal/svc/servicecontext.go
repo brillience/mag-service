@@ -1,11 +1,11 @@
 package svc
 
 import (
-	"es_service/api/internal/config"
-	"es_service/api/model"
-	"es_service/rpc/magclient"
 	"github.com/tal-tech/go-zero/core/stores/sqlx"
 	"github.com/tal-tech/go-zero/zrpc"
+	"mag_service/api/internal/config"
+	"mag_service/api/model"
+	"mag_service/rpc/magclient"
 )
 
 type ServiceContext struct {

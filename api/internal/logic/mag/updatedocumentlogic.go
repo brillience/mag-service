@@ -2,11 +2,11 @@ package mag
 
 import (
 	"context"
-	"es_service/common/errorx"
-	"es_service/rpc/magclient"
+	"mag_service/common/errorx"
+	"mag_service/rpc/magclient"
 
-	"es_service/api/internal/svc"
-	"es_service/api/internal/types"
+	"mag_service/api/internal/svc"
+	"mag_service/api/internal/types"
 
 	"github.com/tal-tech/go-zero/core/logx"
 )

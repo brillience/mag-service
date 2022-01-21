@@ -1,6 +1,6 @@
 # Mag Service
 
-MAG abstract service for ODD. This service provides both API services and Rpc services.
+MAG abstract service for ODD. This service provides both API service and Rpc service.
 
 ## Deployment
 
@@ -11,33 +11,50 @@ To deploy this project run
 ```
 
 
-## RESTful API Reference
+## RESTful API 
+[API doc.](api/mag.md)
 
-#### CreateDocument
+## RPC Demo
+Firstly, you should get this project locally. Then how to use it can be found [here](api/internal/svc/servicecontext.go).
+And this is another example：
+```go
+package main
 
-```http
-  POST /mag
+import (
+	"flag"
+	"github.com/tal-tech/go-zero/core/conf"
+	"github.com/tal-tech/go-zero/core/stores/cache"
+	"github.com/tal-tech/go-zero/rest"
+	"github.com/tal-tech/go-zero/zrpc"
+
+	"mag_service/rpc/magclient"
+)
+
+type Config struct {
+	rest.RestConf
+	Mysql struct {
+		DataSource string
+	}
+
+	CacheRedis cache.CacheConf
+	Auth       struct {
+		AccessSecret string
+		AccessExpire int64
+	}
+	MagRpc zrpc.RpcClientConf
+}
+
+var configFile = flag.String("f", "api/etc/mag-api.yaml", "the config file")
+
+func main() {
+	flag.Parse()
+	var c Config
+	conf.MustLoad(*configFile, &c)
+	client := magclient.NewMag(zrpc.MustNewClient(c.MagRpc))
+	client.GetNlpById(...)
+}
+
 ```
-
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
-
-#### UpdateDocument
-
-```http
-  PUT /mag
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
-
-
-## Rpc Demo
-
-Insert gif or link to demo
-
 
 ## Authors
 

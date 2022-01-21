@@ -3,14 +3,14 @@ package user
 import (
 	"context"
 	"errors"
-	"es_service/api/model"
-	"es_service/common/errorx"
 	"github.com/golang-jwt/jwt"
+	"mag_service/api/model"
+	"mag_service/common/errorx"
 	"strings"
 	"time"
 
-	"es_service/api/internal/svc"
-	"es_service/api/internal/types"
+	"mag_service/api/internal/svc"
+	"mag_service/api/internal/types"
 
 	"github.com/tal-tech/go-zero/core/logx"
 )

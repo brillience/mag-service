@@ -4,9 +4,9 @@ package handler
 import (
 	"net/http"
 
-	mag "es_service/api/internal/handler/mag"
-	user "es_service/api/internal/handler/user"
-	"es_service/api/internal/svc"
+	mag "mag_service/api/internal/handler/mag"
+	user "mag_service/api/internal/handler/user"
+	"mag_service/api/internal/svc"
 
 	"github.com/tal-tech/go-zero/rest"
 )

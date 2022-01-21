@@ -4,9 +4,9 @@ import (
 	"flag"
 	"fmt"
 
-	"es_service/api/internal/config"
-	"es_service/api/internal/handler"
-	"es_service/api/internal/svc"
+	"mag_service/api/internal/config"
+	"mag_service/api/internal/handler"
+	"mag_service/api/internal/svc"
 
 	"github.com/tal-tech/go-zero/core/conf"
 	"github.com/tal-tech/go-zero/rest"

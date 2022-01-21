@@ -3,10 +3,10 @@ package mag
 import (
 	"net/http"
 
-	"es_service/api/internal/logic/mag"
-	"es_service/api/internal/svc"
-	"es_service/api/internal/types"
 	"github.com/tal-tech/go-zero/rest/httpx"
+	"mag_service/api/internal/logic/mag"
+	"mag_service/api/internal/svc"
+	"mag_service/api/internal/types"
 )
 
 func UpdateDocumentHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
