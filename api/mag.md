@@ -102,7 +102,7 @@ type CommonResp struct {
 
 1. 路由定义
 
-- Url: /mag/id/:id
+- Url: /mag/id
 - Method: GET
 - Request: `reqAbsId`
 - Response: `Abstract`
@@ -112,7 +112,7 @@ type CommonResp struct {
 
 ```golang
 type ReqAbsId struct {
-	Docid string `from:"docid"`
+	Docid string `form:"docid"`
 }
 ```
 
@@ -143,7 +143,7 @@ type Abstract struct {
 
 ```golang
 type ReqKeyWord struct {
-	Key string `from:"key"`
+	Key string `form:"key"`
 }
 ```
 
@@ -173,7 +173,7 @@ type Abstracts struct {
 
 ```golang
 type ReqAbsId struct {
-	Docid string `from:"docid"`
+	Docid string `form:"docid"`
 }
 ```
 

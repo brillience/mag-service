@@ -17,11 +17,11 @@ type Abstracts {
 }
 
 type reqAbsId {
-	Docid string `from:"docid"`
+	Docid string `form:"docid"`
 }
 
 type reqKeyWord {
-	Key string `from:"key"`
+	Key string `form:"key"`
 }
 type NlpTags {
 	DocId string `json:"docid"`
@@ -69,7 +69,7 @@ service mag-api {
 	
 	@doc "通过docid获取Mag摘要文档"
 	@handler GetDocumentById
-	get /mag/id/:docid (reqAbsId) returns (Abstract)
+	get /mag/id (reqAbsId) returns (Abstract)
 	
 	@doc "支持通配符的模糊搜索"
 	@handler SearchDocumentByKey

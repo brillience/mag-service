@@ -36,7 +36,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodGet,
-				Path:    "/mag/id/:docid",
+				Path:    "/mag/id",
 				Handler: mag.GetDocumentByIdHandler(serverCtx),
 			},
 			{

@@ -11,11 +11,11 @@ type Abstracts struct {
 }
 
 type ReqAbsId struct {
-	Docid string `from:"docid"`
+	Docid string `form:"docid"`
 }
 
 type ReqKeyWord struct {
-	Key string `from:"key"`
+	Key string `form:"key"`
 }
 
 type NlpTags struct {
