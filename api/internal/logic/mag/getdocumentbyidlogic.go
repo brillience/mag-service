@@ -26,9 +26,9 @@ func NewGetDocumentByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) Ge
 }
 
 func (l *GetDocumentByIdLogic) GetDocumentById(req types.ReqAbsId) (*types.Abstract, error) {
-	logx.Infof("[！！！Handler：%s ] docid:%s;", "GetDocumentById", req.Docid)
+	//logx.Infof("[！！！Handler：%s ] docid:%s;", "GetDocumentById", req.Docid)
 	abstract, err := l.svcCtx.MagRpc.GetDocumentById(l.ctx, &magclient.ReqAbsId{DocId: req.Docid})
-	logx.Infof("[！！！Handler：%s ] Resp: abstract id: %s content: %s;", abstract.DocId, abstract.Content)
+	//logx.Infof("[！！！Handler：%s ] Resp: abstract id: %s content: %s;", abstract.DocId, abstract.Content)
 	if err != nil {
 		return nil, errorx.NewDefaultError(err.Error())
 	}

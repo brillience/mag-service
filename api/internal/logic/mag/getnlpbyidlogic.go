@@ -26,7 +26,7 @@ func NewGetNlpByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) GetNlpB
 }
 
 func (l *GetNlpByIdLogic) GetNlpById(req types.ReqAbsId) (*types.NlpTags, error) {
-	logx.Infof("[！！！Handler：%s ] docid:%s;", "GetNlpById", req.Docid)
+	//logx.Infof("[！！！Handler：%s ] docid:%s;", "GetNlpById", req.Docid)
 	nlpTags, err := l.svcCtx.MagRpc.GetNlpById(l.ctx, &magclient.ReqAbsId{DocId: req.Docid})
 	if err != nil {
 		return nil, errorx.NewDefaultError(err.Error())

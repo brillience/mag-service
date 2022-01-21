@@ -24,7 +24,7 @@ func NewGetDocumentByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *G
 
 func (l *GetDocumentByIdLogic) GetDocumentById(in *magclient.ReqAbsId) (*magclient.Abstract, error) {
 	abstract, err := l.svcCtx.MagEs.GetDocumentById(in.DocId)
-	logx.Infof("[RPC] [Handler] GetDocumentById : abstract: %s %s", abstract.Id, abstract.Content)
+	//logx.Infof("[RPC] [Handler] GetDocumentById : abstract: %s %s", abstract.Id, abstract.Content)
 	if err != nil {
 		return nil, err
 	}
