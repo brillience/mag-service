@@ -25,7 +25,7 @@ func NewUpdateDocumentLogic(ctx context.Context, svcCtx *svc.ServiceContext) Upd
 	}
 }
 
-func (l *UpdateDocumentLogic) UpdateDocument(req types.Abstract) (resp *types.CommonResp, err error) {
+func (l *UpdateDocumentLogic) UpdateDocument(req types.Abstract) (*types.CommonResp, error) {
 	commonResp, err := l.svcCtx.MagRpc.UpdateDocument(l.ctx, &magclient.Abstract{DocId: req.Docid, Content: req.Content})
 	if err != nil {
 		return nil, errorx.NewDefaultError(err.Error())

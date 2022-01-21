@@ -25,7 +25,7 @@ func NewCreateDocumentLogic(ctx context.Context, svcCtx *svc.ServiceContext) Cre
 	}
 }
 
-func (l *CreateDocumentLogic) CreateDocument(req types.Abstract) (resp *types.CommonResp, err error) {
+func (l *CreateDocumentLogic) CreateDocument(req types.Abstract) (*types.CommonResp, error) {
 	commonResp, err := l.svcCtx.MagRpc.CreateDocument(l.ctx, &magclient.Abstract{DocId: req.Docid, Content: req.Content})
 	if err != nil {
 		return nil, errorx.NewDefaultError(err.Error())

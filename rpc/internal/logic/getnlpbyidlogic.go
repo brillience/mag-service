@@ -23,9 +23,11 @@ func NewGetNlpByIdLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetNlp
 }
 
 func (l *GetNlpByIdLogic) GetNlpById(in *magclient.ReqAbsId) (*magclient.NlpTags, error) {
+	logx.Infof("[RPC] [Handler] GetNlpById : id: %s", in.DocId)
 	tags, err := l.svcCtx.NlpTagsModel.FindOne(in.DocId)
 	if err != nil {
 		return nil, err
 	}
+	logx.Infof("\"[RPC] [Handler] GetNlpById : tags:%s", tags.NlpTags)
 	return &magclient.NlpTags{DocId: tags.DocId, Tags: tags.NlpTags}, nil
 }

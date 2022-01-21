@@ -26,6 +26,7 @@ func NewSearchDocumentByKeyLogic(ctx context.Context, svcCtx *svc.ServiceContext
 }
 
 func (l *SearchDocumentByKeyLogic) SearchDocumentByKey(req types.ReqKeyWord) (resp *types.Abstracts, err error) {
+	logx.Infof("[！！！Handler：%s ] key:%s;", "SearchDocumentByKey", req.Key)
 	abstracts, err := l.svcCtx.MagRpc.SearchDocumentByKey(l.ctx, &magclient.ReqKeyWord{Key: req.Key})
 	if err != nil {
 		return nil, errorx.NewDefaultError(err.Error())

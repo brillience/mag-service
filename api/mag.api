@@ -69,7 +69,7 @@ service mag-api {
 	
 	@doc "通过docid获取Mag摘要文档"
 	@handler GetDocumentById
-	get /mag/id/:id (reqAbsId) returns (Abstract)
+	get /mag/id/:docid (reqAbsId) returns (Abstract)
 	
 	@doc "支持通配符的模糊搜索"
 	@handler SearchDocumentByKey

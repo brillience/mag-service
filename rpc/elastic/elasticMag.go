@@ -37,6 +37,14 @@ type Abstract struct {
 }
 
 //
+//  doc
+//  @Description: 用于elasticsearch更新数据的结构映射
+//
+type doc struct {
+	Doc interface{} `json:"doc"`
+}
+
+//
 //  GetReponse
 //  @Description: 用于解析elasticsearch的mag索引的单条查询结果的json数据
 //
@@ -165,7 +173,25 @@ func (abstractEs *AbstractEs) CreateDocument(abs Abstract) error {
 	if err != nil {
 		return err
 	}
-	_, err = abstractEs.client.Index("mag", body, abstractEs.client.Index.WithDocumentID(abs.Id))
+	resp, err := abstractEs.client.Index("mag", body, abstractEs.client.Index.WithDocumentID(abs.Id))
+	if resp.IsError() {
+		return errors.New(resp.String())
+	}
+	return err
+}
+
+//
+//  DeleteDocument
+//  @Description: 通过docid删除文档
+//  @receiver abstractEs
+//  @param docid
+//  @return error
+//
+func (abstractEs *AbstractEs) DeleteDocument(docid string) error {
+	response, err := abstractEs.client.Delete(abstractEs.index, docid)
+	if response.IsError() {
+		return errors.New(response.String())
+	}
 	return err
 }
 
@@ -177,12 +203,17 @@ func (abstractEs *AbstractEs) CreateDocument(abs Abstract) error {
 //
 func (abstractEs *AbstractEs) UpdateDocument(abs Abstract) error {
 	body := &bytes.Buffer{}
-	err := json.NewEncoder(body).Encode(&abs)
+	err := json.NewEncoder(body).Encode(&doc{
+		Doc: &abs,
+	})
 	if err != nil {
 		return err
 	}
-	_, err = abstractEs.client.Update(abstractEs.index, abs.Id, body)
-	return nil
+	resp, err := abstractEs.client.Update(abstractEs.index, abs.Id, body)
+	if resp.IsError() {
+		return errors.New(resp.String())
+	}
+	return err
 }
 
 //
@@ -197,6 +228,9 @@ func (abstractEs *AbstractEs) GetDocumentById(id string) (*Abstract, error) {
 	response, err := abstractEs.client.Get("mag", id)
 	if err != nil {
 		return nil, err
+	}
+	if response.IsError() {
+		return nil, errors.New(response.String())
 	}
 	defer response.Body.Close()
 	respItem := GetReponse{}

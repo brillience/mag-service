@@ -16,7 +16,7 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-var configFile = flag.String("f", "etc/mag.yaml", "the config file")
+var configFile = flag.String("f", "/Users/zhang/workspace/go/mag-service/rpc/etc/mag.yaml", "the config file")
 
 func main() {
 	flag.Parse()
