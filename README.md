@@ -6,7 +6,7 @@ MAG abstract service for ODD. This service provides both API service and Rpc ser
 
 ### Build with docker
 Dockerfile -> `api/Dockerfile`;`rpc/Dockerfile`
-### Build with locally
+### Build locally
 ```shell
 chmod +x scripts/install/install.sh
 bash scripts/install/install.sh
