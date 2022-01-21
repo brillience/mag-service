@@ -4,10 +4,12 @@ MAG abstract service for ODD. This service provides both API service and Rpc ser
 
 ## Deployment
 
-To deploy this project run
-
-```bash
-  xxx
+### Build with docker
+Dockerfile -> `api/Dockerfile`;`rpc/Dockerfile`
+### Build with locally
+```shell
+chmod +x scripts/install/install.sh
+bash scripts/install/install.sh
 ```
 
 
