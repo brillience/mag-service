@@ -1,5 +1,10 @@
 Name: mag.rpc
 ListenOn: 127.0.0.1:8080
+Log:
+  ServiceName:mag-rpc
+  Level:error
+  Mode:file
+  KeepDays:14
 Mysql:
   DataSource: root:zhang111@tcp(127.0.0.1:3306)/test?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 CacheRedis:
