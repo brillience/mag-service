@@ -1,0 +1,98 @@
+version: '3'
+
+######## 项目依赖的环境，启动项目之前要先启动此环境 #######
+
+services:
+  #  检索
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.4
+    container_name: mag_elasticsearch
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./data/elasticsearch/data:/usr/share/elasticsearch/data
+    restart: always
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - mag_net
+
+  #查看elasticsearch数据
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.13.4
+    container_name: mag_kibana
+    environment:
+      - elasticsearch.hosts=http://elasticsearch:9200
+      - TZ=Asia/Shanghai
+    restart: always
+    networks:
+      - mag_net
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+  mysql:
+    image: mysql:8.0.24
+    container_name: mag_mysql
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+      # root 密码
+      MYSQL_ROOT_PASSWORD: WQAOIaiona8X
+    ports:
+      - 33069:3306
+    volumes:
+      # 数据挂载
+      - ./data/mysql/data:/var/lib/mysql
+      # 日志
+    command:
+      # 将mysql8.0默认密码策略 修改为 原先 策略 (mysql8.0对其默认策略做了更改 会导致密码无法匹配)
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+    privileged: true
+    restart: always
+    networks:
+      - mag_net
+
+  #redis容器
+  redis:
+    image: redis:6.2.5
+    container_name: mag_redis
+    ports:
+      - 63799:6379
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+    volumes:
+      # 数据文件
+      - ./data/redis/data:/data:rw
+    command: "redis-server --requirepass WQAOIaiona8X  --appendonly yes"
+    privileged: true
+    restart: always
+    networks:
+      - mag_net
+
+  # etcd容器 服务注册与发现
+  etcd:
+    image: quay.io/coreos/etcd
+    container_name: mag_etcd
+    command: etcd -name etcd -advertise-client-urls http://0.0.0.0:2379 -listen-client-urls http://0.0.0.0:2379 -listen-peer-urls http://0.0.0.0:2380 -initial-cluster "etcd=http://etcd:2380"
+    ports:
+      - "23799:2379"
+      - "23809:2380"
+    networks:
+      - mag_net
+
+networks:
+  mag_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

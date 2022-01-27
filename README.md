@@ -5,13 +5,9 @@ MAG abstract service for ODD. This service provides both API service and Rpc ser
 ## Deployment
 
 ### Build with docker
-Dockerfile -> `api/Dockerfile`;`rpc/Dockerfile`
-### Build locally
 ```shell
-chmod +x scripts/install/install.sh
-bash scripts/install/install.sh
+docker-compose -f docker-compose-env.yml up -d
 ```
-
 
 ## RESTful API 
 [API doc.](api/mag.md)

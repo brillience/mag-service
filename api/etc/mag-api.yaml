@@ -8,16 +8,16 @@ Log:
   Mode:file
   KeepDays:14
 Mysql:
-  DataSource: root:zhang111@tcp(127.0.0.1)/test?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  DataSource: root:WQAOIaiona8X@tcp(mag_mysql:33069)/test?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 CacheRedis:
-  - Host: 127.0.0.1:6379
-    Pass: zhang111
+  - Host: mag_redis:63799
+    Pass: WQAOIaiona8X
     Type: node
 Auth:
-  AccessSecret: zhang111
+  AccessSecret: WQAOIaiona8X
   AccessExpire: 6000
 MagRpc:
   Etcd:
     Hosts:
-      - 127.0.0.1:2379
+      - mag_etcd:23799
     Key: mag.rpc
