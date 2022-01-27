@@ -6,7 +6,7 @@ Log:
   Mode:file
   KeepDays:14
 Mysql:
-  DataSource: root:WQAOIaiona8X@tcp(mag_mysql:33069)/test?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
+  DataSource: root:WQAOIaiona8X@tcp(mag_mysql:33069)/mag_server?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 CacheRedis:
   - Host: mag_redis:63799
     Pass: WQAOIaiona8X

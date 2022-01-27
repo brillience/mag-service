@@ -3,11 +3,50 @@
 MAG abstract service for ODD. This service provides both API service and Rpc service.
 
 ## Deployment
-
-### Build with docker
-```shell
-docker-compose -f docker-compose-env.yml up -d
-```
+1. Install docker and docker-compose
+    ```shell
+    sudo apt-get install docker.io
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+    ```
+2. Put `abstracts.csv` to `./rpc/uploadData`
+    ```shell
+    mv abstracts.csv ./rpc/uploadData/
+    ```
+   
+3. Mark this `abstracts.csv` with [NLPMarkTool](https://github.com/brillience/NLPMarkTool).
+   - Convert csv to tsv (optional)
+   ```shell
+   cat abstracts.csv | ./tools/csv2tsv.sh >> articles.tsv
+   ```
+   - NLPMark
+   ```shell
+   git clone https://github.com/brillience/NLPMarkTool
+   mv articles.tsv ./NLPMarkTool/ && cd ./NLPMarkTool
+   mvn clean
+   mvn install
+   mvn exec:java -Dexec.mainClass="com.zhang.nlp.Main"
+   ```
+   Then, `sentences.tsv` file wil be get.
+4. Build env.
+   ```shell
+   docker-compose -f docker-compose-env.yaml up -d
+   ```
+5. Database Init.
+   - Create database and tables.
+   ```shell
+   bash ./scripts/db_init.sh
+   ```
+   - update nlptags to db.
+   ```shell
+   bash ./scripts/update_db.sh
+   ```
+7. Build Server.
+   
+   ```shell
+   docker-compose up -d
+   ```
 
 ## RESTful API 
 [API doc.](api/mag.md)

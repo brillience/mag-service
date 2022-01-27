@@ -1,0 +1,47 @@
+version: '3'
+
+
+services:
+  mag_rpc:
+    build:
+      context: ./rpc
+      dockerfile: Dockerfile
+    container_name: mag_rpc
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+      GOPROXY: https://goproxy.cn,direct
+    working_dir: /build/mag-service/
+    volumes:
+      - .:/build/mag-service/
+    privileged: true
+    restart: always
+    networks:
+      - mag_net
+
+  mag_api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: mag_api
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+      GOPROXY: https://goproxy.cn,direct
+    working_dir: /build/mag-service/
+    volumes:
+      - .:/build/mag-service/
+    privileged: true
+    restart: always
+    networks:
+      - mag_net
+    depends_on:
+      - mag_rpc
+
+
+networks:
+  mag_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

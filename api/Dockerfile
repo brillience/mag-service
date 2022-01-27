@@ -6,7 +6,7 @@ ENV CGO_ENABLED 0
 ENV GOOS linux
 ENV GOPROXY https://goproxy.cn,direct
 
-WORKDIR /build/zero
+WORKDIR /build/mag-service/
 
 ADD go.mod .
 ADD go.sum .
