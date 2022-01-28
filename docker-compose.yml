@@ -4,8 +4,8 @@ version: '3'
 services:
   mag_rpc:
     build:
-      context: ./rpc
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: rpc/Dockerfile
     container_name: mag_rpc
     environment:
       # 时区上海
@@ -21,8 +21,8 @@ services:
 
   mag_api:
     build:
-      context: ./api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: api/Dockerfile
     container_name: mag_api
     environment:
       # 时区上海
