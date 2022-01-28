@@ -43,6 +43,7 @@ def init_db(host,port,database,username,passwd,path):
         """)
     print("[INFO] Done!")
     cursor.close()
+    db.commit()
     db.close()
 
 if __name__ == '__main__':

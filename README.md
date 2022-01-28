@@ -18,7 +18,8 @@ MAG abstract service for ODD. This service provides both API service and Rpc ser
 3. Mark this `abstracts.csv` with [NLPMarkTool](https://github.com/brillience/NLPMarkTool).
    - Convert csv to tsv (optional)
    ```shell
-   cat abstracts.csv | ./tools/csv2tsv.sh >> articles.tsv
+   curl -L https://github.com/eBay/tsv-utils/releases/download/v2.2.0/tsv-utils-v2.2.0_linux-x86_64_ldc2.tar.gz | tar xz
+   ./tsv-utils-v2.2.0_linux-x86_64_ldc2/bin/csv2tsv abstracts.csv > articles.tsv
    ```
    - NLPMark
    ```shell
