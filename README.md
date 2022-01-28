@@ -31,7 +31,7 @@ OS: `Ubuntu >=18.04`
    mvn install
    mvn exec:java -Dexec.mainClass="com.zhang.nlp.Main"
    ```
-   Then, `sentences.tsv` file wil be get.
+   Then, `sentences.tsv` file wil be get and put this file at project path:`mag-service`.
 4. Build env.
    ```shell
    docker-compose -f docker-compose-env.yaml up -d
