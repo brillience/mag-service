@@ -44,6 +44,11 @@ def init_db(host,port,database,username,passwd,path):
     print("[INFO] Done!")
     cursor.close()
     db.commit()
+    print("[INFO] Strat add admin user...")
+    insertSql = "insert into `user` (`username`,`password`) values (%s,%s)"
+    cursor.execute(insertSql,("admin","123456"))
+    db.commit()
+    print("[INFO] Done! API user:admine; passwd:123456;")
     db.close()
 
 if __name__ == '__main__':

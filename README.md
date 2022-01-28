@@ -3,12 +3,14 @@
 MAG abstract service for ODD. This service provides both API service and Rpc service.
 
 ## Deployment
+OS: `Ubuntu >=18.04`
 1. Install docker and docker-compose
     ```shell
     sudo apt-get install docker.io
     sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
     sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+    sudo apt install python3-pip
     ```
 2. Put `abstracts.csv` to `./rpc/uploadData`
     ```shell
