@@ -11,7 +11,7 @@ services:
       # 时区上海
       TZ: Asia/Shanghai
       GOPROXY: https://goproxy.cn,direct
-    working_dir: /build/zero
+    working_dir: /build/zero/rpc
     volumes:
       - .:/build/zero
     privileged: true
@@ -28,7 +28,7 @@ services:
       # 时区上海
       TZ: Asia/Shanghai
       GOPROXY: https://goproxy.cn,direct
-    working_dir: /build/zero
+    working_dir: /build/zero/api
     volumes:
       - .:/build/zero
     privileged: true

@@ -45,6 +45,10 @@ OS: `Ubuntu >=18.04`
    ```shell
    bash ./scripts/update_db.sh
    ```
+   - update `abstracts.csv` to elasticsearch.
+   ```shell
+   go run updateEs.go --p=abstracts.csv
+   ```
 7. Build Server.
    
    ```shell
