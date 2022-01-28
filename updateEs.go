@@ -1,0 +1,1 @@
+package mag_service
