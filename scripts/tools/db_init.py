@@ -9,14 +9,16 @@ import click
 @click.option("--port",help="mysql port")
 @click.option("--username",help="db user")
 @click.option("--passwd",help="db password")
-@click.option("--path",help="sentences.tsv path")
-def init_db(host,port,database,username,passwd,path):
+def init_db(host,port,username,passwd):
     port = int(port)
     db = pymysql.connect(host=host,port=port,user=username,password=passwd,charset='UTF8')
     print("[INFO] strat create database mag_server...")
     cursor = db.cursor()
-    cursor.execute("CREATE DATABASE mag_server")
+    cursor.execute("CREATE DATABASE mag_server IF NOT EXISTS")
     print("[INFO] Done!")
+    db.commit()
+    db.close()
+    db = pymysql.connect(host=host,port=port,database="mag_server",user=username,password=passwd,charset='UTF8')
     cursor.execute("DROP TABLE IF EXISTS nlpTags")
     print("[INFO] Start create table nlptags...")
     cursor.execute("""
@@ -27,6 +29,7 @@ def init_db(host,port,database,username,passwd,path):
     INDEX `doc_id`(`doc_id`(255))
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8
         """)
+    db.commit()
     print("[INFO] Done!")
     print("[INFO] Start create table user...")
     cursor.execute("""
