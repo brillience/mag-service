@@ -12,17 +12,6 @@ ADD go.mod .
 ADD go.sum .
 RUN go mod download
 COPY . .
-COPY rpc/etc /app/etc
-RUN go build -ldflags="-s -w" -o /app/mag rpc/mag.go
+RUN go build -ldflags="-s -w" -o /build/zero/rpc/mag rpc/mag.go
 
-
-FROM alpine
-
-RUN apk update --no-cache && apk add --no-cache ca-certificates tzdata
-ENV TZ Asia/Shanghai
-
-WORKDIR /app
-COPY --from=builder /app/mag /app/mag
-COPY --from=builder /app/etc /app/etc
-
-CMD ["./mag", "-f", "etc/mag.yaml"]
+CMD ["/build/zero/rpc/mag", "-f", "/build/zero/rpc/etc/mag.yaml"]

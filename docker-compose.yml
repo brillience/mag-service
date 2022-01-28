@@ -11,9 +11,9 @@ services:
       # 时区上海
       TZ: Asia/Shanghai
       GOPROXY: https://goproxy.cn,direct
-    working_dir: /build/mag-service/rpc
+    working_dir: /build/zero
     volumes:
-      - .:/build/mag-service/
+      - .:/build/zero
     privileged: true
     restart: always
     networks:
@@ -28,9 +28,9 @@ services:
       # 时区上海
       TZ: Asia/Shanghai
       GOPROXY: https://goproxy.cn,direct
-    working_dir: /build/mag-service/api
+    working_dir: /build/zero
     volumes:
-      - .:/build/mag-service/
+      - .:/build/zero
     privileged: true
     restart: always
     networks:
