@@ -14,17 +14,17 @@ def init_db(host,port,username,passwd):
     db = pymysql.connect(host=host,port=port,user=username,password=passwd,charset='UTF8')
     print("[INFO] strat create database mag_server...")
     cursor = db.cursor()
-    cursor.execute("CREATE DATABASE mag_server IF NOT EXISTS")
+    cursor.execute("CREATE DATABASE IF NOT EXISTS mag_server")
     print("[INFO] Done!")
     db.commit()
     db.close()
     db = pymysql.connect(host=host,port=port,database="mag_server",user=username,password=passwd,charset='UTF8')
-    cursor.execute("DROP TABLE IF EXISTS nlpTags")
+    cursor = db.cursor()
     print("[INFO] Start create table nlptags...")
     cursor.execute("""
-    CREATE TABLE `nlpTags` (
-    `doc_id` varchar(255) NOT NULL DEFAULT '',
-    `nlp_tags` text NOT NULL DEFAULT '' COMMENT 'json字符串',
+    CREATE TABLE IF NOT EXISTS `nlpTags` (
+    `doc_id` varchar(255) NOT NULL,
+    `nlp_tags` text NOT NULL COMMENT 'json字符串',
     PRIMARY KEY (`doc_id`),
     INDEX `doc_id`(`doc_id`(255))
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8
@@ -33,7 +33,7 @@ def init_db(host,port,username,passwd):
     print("[INFO] Done!")
     print("[INFO] Start create table user...")
     cursor.execute("""
-    CREATE TABLE `user` (
+    CREATE TABLE IF NOT EXISTS `user` (
     `id` bigint NOT NULL AUTO_INCREMENT,
     `username` varchar(255) NOT NULL DEFAULT '' COMMENT '账户',
     `nick` varchar(255)  NOT NULL DEFAULT '' COMMENT '昵称',
@@ -45,7 +45,6 @@ def init_db(host,port,username,passwd):
     ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4
         """)
     print("[INFO] Done!")
-    cursor.close()
     db.commit()
     print("[INFO] Strat add admin user...")
     insertSql = "insert into `user` (`username`,`password`) values (%s,%s)"
