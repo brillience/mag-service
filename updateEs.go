@@ -18,7 +18,7 @@ func main() {
 	if p == "" || path.Ext(p) != ".csv" {
 		panic("Please input csv path")
 	}
-	client, err := elasticsearch.NewClient(elasticsearch.Config{Addresses: []string{"127.0.0.1:92009"}})
+	client, err := elasticsearch.NewClient(elasticsearch.Config{Addresses: []string{"127.0.0.1:9200"}})
 	if err != nil {
 		panic(err.Error())
 	}

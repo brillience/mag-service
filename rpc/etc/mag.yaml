@@ -1,19 +1,11 @@
 Name: mag.rpc
 ListenOn: 127.0.0.1:8080
-Log:
-  ServiceName:mag-rpc
-  Level:error
-  Mode:file
-  KeepDays:14
 Mysql:
   DataSource: root:WQAOIaiona8X@tcp(mag_mysql:33069)/mag_server?charset=utf8mb4&parseTime=true&loc=Asia%2FShanghai
 CacheRedis:
   - Host: mag_redis:63799
     Pass: WQAOIaiona8X
     Type: node
-Auth:
-  AccessSecret: WQAOIaiona8X
-  AccessExpire: 6000
 EsConfig:
   Urls:
     - http://mag_elasticsearch:9200
